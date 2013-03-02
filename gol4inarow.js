@@ -170,19 +170,26 @@ function drawNext() {
     draw();
 }
 
+function drawMessage(msg) {
+  ctx.fillStyle = "grey";
+  ctx.fillRect(100, 100, ctx.measureText(msg).width+20, 30);
+  ctx.fillStyle = "white";
+  ctx.fillText(msg, 110, 120);
+}
+
 function undo() {
     cells = oldCells;
     currPlayer = !currPlayer;
     draw();
 }
 
-function onClick (e) {
+function onClick(e) {
     if(addCell(getCursorPosition(e))) {
         currPlayer = !currPlayer;
         draw();
         var winner = checkForVictory(cells);
         if(winner)
-            alert("Player " + winner + " won!");
+            setTimeout(drawMessage, 600, "Player " + winner + " won!");
         setTimeout(drawNext, 500);
     }
 }
