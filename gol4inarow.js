@@ -15,8 +15,8 @@ var player1 = true;
 var player2 = false
 var currPlayer = player1;
 
-var color1 = '#00f'; // blue
-var color2 = '#f00'; // red
+var color1 = "#3465a4"; // blue
+var color2 = "#cc0000"; // red
 
 //// Helper functions:
 function wrapX(n) {
@@ -50,6 +50,7 @@ function getCursorPosition(e) {
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    ctx.font = "15px sans-serif";
 }
 
 
