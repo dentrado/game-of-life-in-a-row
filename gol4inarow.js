@@ -1,15 +1,11 @@
 /*******************************************************************
- * Game of Life                                                    *
+ * Game of life in a row                                           *
  * Written by Martin Forsgren 2011                                 *
  * inspired by http://clj-me.cgrand.net/index.php?s=game+of+life   *
  *******************************************************************/
 
-// TODO: ändra player1 > player2 ? så om lika blir cellen oförändrad
-// kanske.., eller lättare (och bättre ?) ändra bara på nyskapade celler.
-
 var canvas, ctx;
-var cellSize = 10;
-//var cells = {};
+var cellSize = 15;
 var cells = {"10,10":[10,10,false],"10,11":[10,11,true],"11,11":[11,11,false],"11,10":[11,10,true]}
 var oldCells = cells;
 
@@ -79,7 +75,7 @@ function neighbours(cell) {
 // since the information is only used when new cells are created, so
 // (neighbourcount == 3) == (p1freq != p2freq)
 function freqsWithPlayer(cells) {
-    freqs = {};
+    var freqs = {};
     for(var i in cells) {
         cell = [cells[i][0],cells[i][1]];
         player = cells[i][2];
@@ -131,8 +127,8 @@ function checkForVictory(cells) {
             return cells[cell] && cells[cell][2] == player;
         }
         for(var i = 1; i < numToWin; i++) {
-            if(existsAndSamePlayer([x+i, y]))   counts[0]++; // horizontal
-            if(existsAndSamePlayer([x, y+i]))   counts[1]++; // vertical
+            if(existsAndSamePlayer([x+i, y  ])) counts[0]++; // horizontal
+            if(existsAndSamePlayer([x  , y+i])) counts[1]++; // vertical
             if(existsAndSamePlayer([x+i, y-i])) counts[2]++; // diag up
             if(existsAndSamePlayer([x+i, y+i])) counts[3]++; // diag down
         }
@@ -147,7 +143,6 @@ function checkForVictory(cells) {
 // nothing happens and false is returned.
 function addCell(pos) {
     if(cells[pos]) {
-        alert("No!");
         return false;
     } else {
         cells[pos] = [pos[0],pos[1],currPlayer];
@@ -155,9 +150,9 @@ function addCell(pos) {
     }
 }
 
-//// 
+//// UI:
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);  
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     // draw cells
     for(var i in cells) {
         ctx.fillStyle = cells[i][2] ? color1 : color2;
