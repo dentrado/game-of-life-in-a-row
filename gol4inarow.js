@@ -160,6 +160,7 @@ function draw() {
                      cellSize, cellSize);
     }
     // display current player
+    ctx.fillStyle = currPlayer ? color1 : color2;
     ctx.fillText(currPlayer ? "Player 1" : "Player 2", 10, 20);
 }
 
